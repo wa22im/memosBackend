@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({limit :'30mb' , extended:true}))
 app.use(cors()) ; 
 app.use('/posts',postRoutes) 
 app.use('/users',userRoutes) 
-app.get('/',(res,req)=>{
+app.get('/',(req,res)=>{
   res.send("APP IS WORKING")
 })
 const connection_url = `mongodb+srv://${process.env.userNameDB}:${process.env.mongoosePwdUser0}@cluster0.2ftmg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
