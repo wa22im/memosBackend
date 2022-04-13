@@ -5,7 +5,7 @@ import {secret} from '../shared/constants.js'
 const auth = async (req, res, next) => {
   try {
    
-    if ( req.path.includes('users'))
+    if ( req.path.includes('users') || (req.path=='/api/v1/posts' && req.method==='GET'))
     next()
     else{
       const token = req.headers.authorization.split(" ")[1];
