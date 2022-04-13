@@ -1,0 +1,680 @@
+openapi: 3.0.1
+info:
+  title: Memo backend documentation
+  description: Memo backend documentation.
+  contact:
+    name: wassim miladi
+    email: miladi.wassim@outlook.com
+  version: 1.0.0
+security:
+  - bearerAuth: []
+servers:
+  - url: /api/v1
+    description: Current Server
+  - url: test
+    description: Production
+paths:
+  /posts:
+    get:
+      summary: get all posts.
+      description: |
+        ''
+
+      operationId: getPosts
+      tags:
+        - posts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+    post:
+      summary: Create a new post.
+      description: |
+        ''
+
+      operationId: createPost
+      tags:
+        - posts
+      requestBody:
+        $ref: "#/components/requestBodies/PostBody"
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+
+  /posts/{id}:
+    delete:
+      summary: delete a  post by id.
+      description: |
+        This operation is used to delete a  post.
+
+      operationId: deletePost
+      tags:
+        - posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: An identifier for post
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+    patch:
+      summary: Update post by id.
+      description: |
+        ''
+
+      operationId: updatePost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: An identifier for post
+          schema:
+            type: string
+      tags:
+        - posts
+      requestBody:
+        $ref: "#/components/requestBodies/PostBody"
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+    get:
+      summary: get post by id.
+      description: |
+        ''
+
+      operationId: getPostById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: An identifier for post
+          schema:
+            type: string
+      tags:
+        - posts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+  /posts/{id}/likes:
+    patch:
+      summary: like a post by sending the id for that post.
+      description: |
+        This operation is used to like  post.
+
+      operationId: likePost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: An identifier for post
+          schema:
+            type: string
+      tags:
+        - posts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+  /posts/{id}/commentPost:
+    patch:
+      summary: comment a post by sending the id for that post.
+      description: |
+        This operation is used to comment on a   post.
+
+      operationId: commentPost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: An identifier for post
+          schema:
+            type: string
+      tags:
+        - posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                value:
+                  type: string
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+  /search/posts/:
+    get:
+      summary: search  posts.
+      description: |
+        ''
+
+      operationId: searchPostByQueryParams
+      parameters:
+        - name: searchQuery
+          in: query
+          required: true
+          description: search by title
+          schema:
+            type: string
+        - name: tags
+          in: query
+          required: false
+          description: search by tags
+          schema:
+            type: string
+      tags:
+        - search
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+
+  /users/signin:
+    post:
+      summary: Sign in as a registered user.
+      description: |
+        This operation is used to sign in.
+
+      operationId: signIn
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/signInResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+  /users/signup:
+    post:
+      summary: Sign up  new user.
+      description: |
+        This operation is used to sign in.
+
+      operationId: signUp
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/signInResponse"
+        "400":
+          description: Bad request.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad request.
+        "401":
+          description: Authentication failed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Authentication failed.
+        "403":
+          description: Access forbidden.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Access forbidden.
+        "500":
+          description: Internal error.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Internal error.
+
+  /healthcheck:
+    get:
+      summary: Instance health
+      description: This operation performs a healthcheck of this particular service and all services on which it depends.
+      security: []
+      tags:
+        - health
+      operationId: getHealth
+      responses:
+        200:
+          description: Service and all dependencies are healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Healthcheck"
+        503:
+          description: Service or any dependencies are unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Healthcheck"
+components:
+  schemas:
+    signInResponse:
+      type: object
+      properties:
+        result:
+          type: object
+        token:
+          type: string
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+        message:
+          type: string
+        name:
+          type: string
+        creator:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        selectedFile:
+          type: string
+          example: FileBase base64
+
+    PostResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        message:
+          type: string
+        name:
+          type: string
+        creator:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        selectedFile:
+          type: string
+          example: FileBase base64
+        likes:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+        comments:
+          type: array
+          items:
+            type: string
+
+    Healthcheck:
+      type: object
+      properties:
+        generatedDate:
+          type: string
+          description:
+            The ISO8601 date and time representing the start of the healthcheck
+            report
+          format: date-time
+        durationInMillis:
+          type: number
+          description:
+            The number of milliseconds that the healthecheck report took
+            to generate
+        tests:
+          type: array
+          items:
+            $ref: "#/components/schemas/HealthcheckTest"
+    HealthcheckTest:
+      type: object
+      properties:
+        testName:
+          type: string
+          description: The name of the test or endpoint.
+        testedDate:
+          type: string
+          description: The IS08601 date and time representing the start of the test
+          format: date-time
+        testResult:
+          type: string
+          description: The result of running the test
+          enum:
+            - passed
+            - failed
+        durationInMillis:
+          type: number
+          description: The number of milliseconds that the test took to executed
+        error:
+          type: string
+          description: A string describing any error conditions that were experienced
+  requestBodies:
+    PostBody:
+      description: The deliverable details
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Post"
+
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

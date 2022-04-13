@@ -4,8 +4,11 @@ import jwt from "jsonwebtoken";
 import {secret} from '../shared/constants.js'
 const auth = async (req, res, next) => {
   try {
-    
-    const token = req.headers.authorization.split(" ")[1];
+   
+    if ( req.path.includes('users'))
+    next()
+    else{
+      const token = req.headers.authorization.split(" ")[1];
     const isCustomAuth = token.length < 500;
 
     let decodedData;
@@ -20,12 +23,14 @@ const auth = async (req, res, next) => {
 
       req.userId = decodedData?.sub;
     }    
-
     next();
+  }
+
+   
   } catch (error) {
    
-    console.log(error)
-    res.status(400).send("Login ")
+    //console.log(error)
+    res.status(401).send("Authentication failed.")
   }
 };
 
